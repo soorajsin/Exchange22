@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiURL from "../config";
+import "./Home.css";
 
 const Homepage = () => {
   const api = apiURL.url;
@@ -44,8 +45,8 @@ const Homepage = () => {
     navAuth();
   }, [navAuth, filteredPlayers]);
 
-  const updatePlayer = (addPlayerId, index) => {
-    history(`/update/${addPlayerId}`);
+  const plusCal = (playerId) => {
+    history(`/addCal/${playerId}`);
   };
 
   return (
@@ -70,7 +71,7 @@ const Homepage = () => {
                     <>
                       <div className="handle">
                         <i
-                          onClick={() => updatePlayer(addPlayer._id, index)}
+                          onClick={() => plusCal(addPlayer._id, index)}
                           className="fa-solid fa-plus"
                         ></i>
                       </div>
