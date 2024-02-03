@@ -9,6 +9,9 @@ const Homepage = () => {
 
   const [userData, setUserData] = useState();
   const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
+  const [newPlayerInput, setNewPlayerInput] = useState(""); // State to store the new player input
+  const [showInputField, setShowInputField] = useState(false); // State to control whether to show the input field or not
+  console.log(newPlayerInput);
 
   const navAuth = useCallback(async () => {
     const token = await localStorage.getItem("token");
@@ -43,10 +46,29 @@ const Homepage = () => {
 
   useEffect(() => {
     navAuth();
-  }, [navAuth, filteredPlayers]);
+  }, [navAuth]);
 
   const plusCal = (playerId) => {
-    history(`/addCal/${playerId}`);
+    // Handle the logic to show input text field and save button
+    setNewPlayerInput(""); // Clear previous input
+    // Implement logic to show input field and save button
+    // You can use a state variable to control whether to show the input field or not
+    // For example, you can have a state variable like showInputField
+
+    // Example:
+    setShowInputField(true);
+  };
+
+  const saveNewPlayer = () => {
+    // Handle the logic to save the new player input
+    // You can add the new player input to your data structure
+    // For example, update userData or make an API call to add the new player
+    // Example:
+    // const updatedPlayers = [...userData.data.addPlayer, { pname: newPlayerInput, pimg: "your_image_url" }];
+    // setUserData({ ...userData, data: { ...userData.data, addPlayer: updatedPlayers } });
+    // After saving, you might want to hide the input field
+    // Example:
+    setShowInputField(false);
   };
 
   return (
@@ -83,6 +105,18 @@ const Homepage = () => {
               <p>Player not found</p>
             )}
           </div>
+          {/* Input field and Save button */}
+          {showInputField && (
+            <div>
+              <input
+                type="text"
+                value={newPlayerInput}
+                onChange={(e) => setNewPlayerInput(e.target.value)}
+                placeholder="Enter new player name"
+              />
+              <button onClick={saveNewPlayer}>Save</button>
+            </div>
+          )}
         </div>
       </div>
     </>

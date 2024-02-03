@@ -27,9 +27,9 @@ const Nav = () => {
       console.log(res);
       setUserData(res);
     } else {
-      history("/");
+      console.log("user not found");
     }
-  }, [api, history]);
+  }, [api]);
 
   useEffect(() => {
     navAuth();
