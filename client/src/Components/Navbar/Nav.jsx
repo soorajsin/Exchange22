@@ -1,9 +1,61 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AppBar, Avatar, Toolbar } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Nav.css";
+import apiURL from "../config";
 
 const Nav = () => {
+  const [userData, setUserData] = useState();
+  // console.log("Nav  ", userData);
+  const api = apiURL.url;
+  const history = useNavigate();
+  const navAuth = useCallback(async () => {
+    const token = await localStorage.getItem("token");
+    // console.log(token);
+
+    const data = await fetch(`${api}/validator`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token
+      }
+    });
+
+    const res = await data.json();
+    // console.log(res);
+
+    if (res.status === 201) {
+      console.log(res);
+      setUserData(res);
+    } else {
+      history("/");
+    }
+  }, [api, history]);
+
+  useEffect(() => {
+    navAuth();
+  }, [navAuth]);
+
+  const signOut = async () => {
+    const token = await localStorage.getItem("token");
+    const data = await fetch(`${api}/signOut`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token
+      }
+    });
+    const res = await data.json();
+    // console.log(res);
+    if (res.status === 211) {
+      localStorage.removeItem("token");
+      history("/");
+      window.location.reload();
+    } else {
+      alert("Not Log Out");
+    }
+  };
+
   return (
     <>
       <AppBar>
@@ -31,13 +83,13 @@ const Nav = () => {
             <div className="tab">
               <div className={"tabClick"}>
                 <Avatar className="avatarIcon">
-                  {/* {userData ? userData.data.email.charAt(0).toUpperCase() : ""} */}
+                  {userData ? userData.data.email.charAt(0).toUpperCase() : ""}
                 </Avatar>
                 <div className="avatarManu">
                   <div className="avatartab">
                     <NavLink className={"avatarClick"}>
-                      Email
-                      {/* {userData ? userData.data.email : "Email"} */}
+                      {/* Email */}
+                      {userData ? userData.data.email : "Email"}
                     </NavLink>
                   </div>
                   <div className="avatartab">
@@ -51,7 +103,7 @@ const Nav = () => {
                       Login
                     </NavLink>
                   </div>
-                  <div className="avatartab">
+                  <div className="avatartab" onClick={signOut}>
                     <NavLink className={"avatarClick"}>Log Out</NavLink>
                   </div>
                 </div>
