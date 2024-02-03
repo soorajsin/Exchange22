@@ -239,4 +239,49 @@ router.get("/fetchedDataForManagement", async (req, res) => {
   }
 });
 
+router.put("/updateFood", authentication, async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { sendData, addPlayerId } = req.body;
+    if (!sendData || !addPlayerId) {
+      res.status(400).json({
+        msg: "Missing Data"
+      });
+    } else {
+      const user = req.getData;
+      if (!user) {
+        res.status(400).json({
+          msg: "user not found"
+        });
+      } else {
+        const entryFieldIndex = user.addPlayer.findIndex(
+          (addPlayer) => addPlayer._id.toString() === addPlayerId
+        );
+
+        if (entryFieldIndex === -1) {
+          res.status(400).json({
+            msg: "This field does not already exist."
+          });
+        } else {
+          // Update the fields using the index
+          user.addPlayer[entryFieldIndex].pname = sendData.pname;
+          user.addPlayer[entryFieldIndex].pimg = sendData.pimg;
+
+          const updatedUser = await user.save();
+          res.status(201).json({
+            msg: "Update food data successfully done",
+            status: 205,
+            data: updatedUser
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      msg: "failed to update"
+    });
+  }
+});
+
 module.exports = router;
