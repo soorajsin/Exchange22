@@ -143,4 +143,83 @@ router.post("/signOut", authentication, async (req, res) => {
   }
 });
 
+router.post("/addPlayer", authentication, async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { sendData } = req.body;
+    if (!sendData) {
+      res.status(400).json({
+        message: "Please provide the food details!"
+      });
+    } else {
+      const user = req.getData;
+      if (!user) {
+        res.status(400).json({
+          message: "User not Found"
+        });
+      } else {
+        // console.log(user);
+        user.addPlayer.push(...sendData);
+
+        const updatedUser = await user.save();
+
+        res.status(201).json({
+          message: "Successfully added to your Food List!",
+          status: 201,
+          data: updatedUser
+        });
+      }
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: error
+    });
+  }
+});
+
+router.delete("/deletePlayer", authentication, async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { addPlayerId } = req.body;
+    if (!addPlayerId) {
+      res.status(400).json({
+        msg: "Not find id"
+      });
+    } else {
+      const user = req.getData;
+      if (!user) {
+        res.status(400).json({
+          msg: "user not found"
+        });
+      } else {
+        const entryField = user.addPlayer.find(
+          (addPlayer) => addPlayer._id.toString() === addPlayerId
+        );
+
+        if (!entryField) {
+          res.status(400).json({
+            msg: `This food is not in your list`
+          });
+        } else {
+          // console.log(entryField);
+          user.addPlayer = user.addPlayer.filter(
+            (addPlayer) => addPlayer._id.toString() !== addPlayerId
+          );
+
+          const updatedUser = await user.save();
+          res.status(201).json({
+            msg: "Delete successfully done",
+            data: updatedUser,
+            status: 204
+          });
+        }
+      }
+    }
+  } catch (error) {
+    res.status(400).json({
+      error: "Error in deleting the food item"
+    });
+  }
+});
+
 module.exports = router;

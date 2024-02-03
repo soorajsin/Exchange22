@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.management {
+  width: 1200px;
+  margin: 100px auto;
+}
+
+.management .managementCon {
+  /* display: flex; */
+  width: 1200px;
+}
+
+.management .managementCon .add button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  background-color: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.management .managementCon .show {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.management .managementCon .show .showData {
+  width: 300px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+  background-color: #eec6c6;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.management .managementCon .show .showData img {
+  width: 300px;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.management .managementCon .show .showData h3 {
+  margin: 10px;
+}
+
+.management .managementCon .show .showData p {
+  margin: 10px;
+  font-size: 20px;
+  display: none;
+  word-wrap: break-word;
+}
+
+.management .managementCon .show .showData:hover p {
+  display: block;
+}
+
+.management .managementCon .show .showData .manage {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.management .managementCon .show .showData .manage .handle i {
+  font-size: 23px;
+  cursor: pointer;
+  display: none;
+}
+
+.management .managementCon .show .showData:hover .manage .handle i {
+  display: block;
+}
+
+.management .managementCon .show .showData .manage .handle i:hover {
+  color: #d43757;
+}

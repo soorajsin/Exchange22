@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
         required: true
       }
     }
+  ],
+  addPlayer: [
+    {
+      pname: String,
+      pimg: String
+    }
   ]
 });
 

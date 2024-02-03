@@ -1,0 +1,10 @@
+.register .regContainer .form h2 {
+  word-spacing: 28px;
+  font-size: 30px;
+}
+
+.register .regContainer .form .line {
+  width: 400px;
+  height: 1px;
+  background-color: black;
+}

@@ -5,10 +5,9 @@ import "./Nav.css";
 import apiURL from "../config";
 
 const Nav = () => {
-  const [userData, setUserData] = useState();
-  // console.log("Nav  ", userData);
   const api = apiURL.url;
   const history = useNavigate();
+  const [userData, setUserData] = useState();
   const navAuth = useCallback(async () => {
     const token = await localStorage.getItem("token");
     // console.log(token);
@@ -62,7 +61,7 @@ const Nav = () => {
         <Toolbar>
           <div className="nav">
             <div className="tab">
-              <NavLink className={"tabClick"}>
+              <NavLink to={"/home"} className={"tabClick"}>
                 <img
                   src="https://shopping-app-xx1p.vercel.app/static/media/Sooraj-logo.4ea9ba32a0c93354b8a8.png"
                   alt="logo"
@@ -70,10 +69,14 @@ const Nav = () => {
               </NavLink>
             </div>
             <div className="tab">
-              <NavLink className={"tabClick"}>Home</NavLink>
+              <NavLink to={"/home"} className={"tabClick"}>
+                Home
+              </NavLink>
             </div>
             <div className="tab">
-              <NavLink className={"tabClick"}>Profile</NavLink>
+              <NavLink to={"/profile"} className={"tabClick"}>
+                Profile
+              </NavLink>
             </div>
             <div className="tab">
               <NavLink to={"/"} className={"tabClick"}>
@@ -93,10 +96,14 @@ const Nav = () => {
                     </NavLink>
                   </div>
                   <div className="avatartab">
-                    <NavLink className={"avatarClick"}>Home</NavLink>
+                    <NavLink to={"/home"} className={"avatarClick"}>
+                      Home
+                    </NavLink>
                   </div>
                   <div className="avatartab">
-                    <NavLink className={"avatarClick"}>Profile</NavLink>
+                    <NavLink to={"/profile"} className={"avatarClick"}>
+                      Profile
+                    </NavLink>
                   </div>
                   <div className="avatartab">
                     <NavLink to={"/"} className={"avatarClick"}>
