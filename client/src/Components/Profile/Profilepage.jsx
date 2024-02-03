@@ -61,6 +61,10 @@ const Profilepage = () => {
     }
   };
 
+  const updatePlayer = (addPlayerId, index) => {
+    history(`/update/${addPlayerId}`);
+  };
+
   return (
     <>
       <div className="management">
@@ -84,7 +88,7 @@ const Profilepage = () => {
                         </div>
                         <div className="handle">
                           <i
-                            // onClick={() => updateFood(addFood._id, index)}
+                            onClick={() => updatePlayer(addPlayer._id, index)}
                             className="fa-solid fa-pen-nib"
                           ></i>
                         </div>
