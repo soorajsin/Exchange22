@@ -11,10 +11,10 @@ const Profilepage = () => {
   };
 
   const [userData, setUserData] = useState();
-  //   console.log("profile", userData);
+  const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
+
   const navAuth = useCallback(async () => {
     const token = await localStorage.getItem("token");
-    // console.log(token);
 
     const data = await fetch(`${api}/validator`, {
       method: "GET",
@@ -25,19 +25,28 @@ const Profilepage = () => {
     });
 
     const res = await data.json();
-    // console.log(res);
 
     if (res.status === 201) {
-      console.log(res);
       setUserData(res);
     } else {
       history("/");
     }
   }, [api, history]);
 
+  // Function to filter players based on the search term
+  const filteredPlayers = () => {
+    if (!userData) {
+      return [];
+    }
+
+    return userData.data.addPlayer.filter((addPlayer) =>
+      addPlayer.pname.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   useEffect(() => {
     navAuth();
-  }, [navAuth]);
+  }, [navAuth, filteredPlayers]);
 
   const deletePlayer = async (addPlayerId, index) => {
     const token = await localStorage.getItem("token");
@@ -51,10 +60,8 @@ const Profilepage = () => {
     });
 
     const res = await data.json();
-    // console.log(res);
 
     if (res.status === 204) {
-      console.log(res);
       window.location.reload();
     } else {
       alert("Failed to Delete Food");
@@ -73,30 +80,40 @@ const Profilepage = () => {
             <button onClick={addNewPlayer}>ADD NEW PLAYER</button>
           </div>
           <div className="show">
-            {userData
-              ? userData.data.addPlayer.map((addPlayer, index) => (
-                  <div key={index} className="showData">
-                    <img src={addPlayer.pimg} alt="img" />
-                    <h3>{addPlayer.pname}</h3>
-                    <div className="manage">
-                      <>
-                        <div className="handle">
-                          <i
-                            onClick={() => deletePlayer(addPlayer._id, index)}
-                            className="fa-solid fa-trash"
-                          ></i>
-                        </div>
-                        <div className="handle">
-                          <i
-                            onClick={() => updatePlayer(addPlayer._id, index)}
-                            className="fa-solid fa-pen-nib"
-                          ></i>
-                        </div>
-                      </>
-                    </div>
+            <input
+              type="search"
+              placeholder="Search name here..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="show">
+            {filteredPlayers().length > 0 ? (
+              filteredPlayers().map((addPlayer, index) => (
+                <div key={index} className="showData">
+                  <img src={addPlayer.pimg} alt="img" />
+                  <h3>{addPlayer.pname}</h3>
+                  <div className="manage">
+                    <>
+                      <div className="handle">
+                        <i
+                          onClick={() => deletePlayer(addPlayer._id, index)}
+                          className="fa-solid fa-trash"
+                        ></i>
+                      </div>
+                      <div className="handle">
+                        <i
+                          onClick={() => updatePlayer(addPlayer._id, index)}
+                          className="fa-solid fa-pen-nib"
+                        ></i>
+                      </div>
+                    </>
                   </div>
-                ))
-              : ""}
+                </div>
+              ))
+            ) : (
+              <p>Player not found</p>
+            )}
           </div>
         </div>
       </div>

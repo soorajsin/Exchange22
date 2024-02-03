@@ -112,7 +112,7 @@ const UpdatePage = () => {
           </div>
           <div className="form">
             <h4>
-              <NavLink to={"/management"}>Cancel</NavLink>
+              <NavLink to={"/profile"}>Cancel</NavLink>
             </h4>
           </div>
         </div>

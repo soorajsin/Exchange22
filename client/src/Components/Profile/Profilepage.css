@@ -78,3 +78,11 @@
 .management .managementCon .show .showData .manage .handle i:hover {
   color: #d43757;
 }
+
+.management .managementCon .show input {
+  width: 300px;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-size: 30px;
+}
