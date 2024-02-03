@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  width: 1200px;
+  margin: auto;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav .tab {
+  /* font-size: 30px; */
+  margin-top: 10px;
+}
+
+.nav .tab .tabClick {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+  position: relative;
+}
+
+.nav .tab .tabClick:hover {
+  color: #f5f5f5;
+}
+
+.nav .tab .tabClick img {
+  width: 60px;
+  height: 60px;
+}
+
+.nav .tab .tabClick .avatarIcon {
+  font-size: 30px;
+  background-color: #fff;
+  color: red;
+}
+
+.nav .tab .tabClick .avatarManu {
+  width: 300px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  display: none;
+}
+
+.nav .tab .tabClick:hover .avatarManu {
+  display: block;
+}
+
+.nav .tab .tabClick .avatarManu .avatartab {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.nav .tab .tabClick .avatarManu .avatartab .avatarClick {
+  text-decoration: none;
+  color: black;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.nav .tab .tabClick .avatarManu .avatartab:hover {
+  background-color: rgba(85, 77, 77, 0.863);
+}
+
+.nav .tab .tabClick .avatarManu .avatartab:hover .avatarClick {
+  color: #fff;
+}
